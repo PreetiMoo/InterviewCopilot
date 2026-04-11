@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "InterviewCopilot",
+  "version": "1.0.0",
+  "description": "Interview coaching side panel for job listings",
+  "permissions": ["sidePanel", "scripting", "storage", "activeTab", "tabs"],
+  "host_permissions": [
+    "https://www.linkedin.com/*",
+    "https://www.glassdoor.com/*",
+    "https://www.glassdoor.co.in/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "InterviewCopilot"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/jobs/**",
+        "https://linkedin.com/jobs/**",
+        "https://www.glassdoor.com/**",
+        "https://www.glassdoor.co.in/**"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
