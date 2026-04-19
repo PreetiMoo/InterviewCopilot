@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InterviewCopilot Privacy Policy</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0b1020;
+      --card: #121a31;
+      --text: #e8ecf7;
+      --muted: #b7c0da;
+      --accent: #8aa4ff;
+      --border: #2a3760;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f5f7ff;
+        --card: #ffffff;
+        --text: #1c2643;
+        --muted: #475377;
+        --accent: #3b5be0;
+        --border: #dbe3ff;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+    h1, h2, h3 { line-height: 1.25; margin: 0 0 10px; }
+    h1 { font-size: 2rem; }
+    h2 {
+      margin-top: 28px;
+      font-size: 1.25rem;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+    p { margin: 8px 0; }
+    ul { margin: 8px 0 8px 20px; }
+    li { margin: 6px 0; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 14px 0;
+    }
+    .muted { color: var(--muted); }
+    .meta {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .code {
+      font-family: Consolas, Menlo, monospace;
+      font-size: 0.92em;
+      padding: 0 4px;
+      border-radius: 4px;
+      background: rgba(127, 154, 255, 0.12);
+      color: var(--accent);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 9px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      background: rgba(127, 154, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Privacy Policy for InterviewCopilot</h1>
+    <p class="meta"><strong>Effective date:</strong> April 19, 2026</p>
+    <p class="meta">
+      This policy describes how InterviewCopilot handles information based on the current source code of the extension and backend service.
+    </p>
+
+    <h2>Introduction</h2>
+    <p>
+      InterviewCopilot is a Chrome extension with an optional backend API. It helps users practice interview responses by extracting job-post details from supported job pages and generating interview questions/feedback using Google Gemini.
+    </p>
+    <p>
+      This policy is intentionally specific to the implemented behavior in the codebase and does not claim data practices that are not present.
+    </p>
+
+    <h2>Information We Collect</h2>
+    <div class="card">
+      <h3>Information extracted from job pages (extension)</h3>
+      <ul>
+        <li>Job title</li>
+        <li>Company name</li>
+        <li>Job description text</li>
+        <li>Review snippets/culture snippets when available on the page</li>
+        <li>Page URL and scrape timestamp</li>
+      </ul>
+      <p>
+        This extraction runs only on matching LinkedIn/Glassdoor job URLs declared in the extension manifest.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>User-provided content</h3>
+      <ul>
+        <li>Manual company, role title, and job description entered by the user when auto-detection is incomplete</li>
+        <li>Written interview answers entered in the side panel</li>
+        <li>Optional voice dictation content (transcribed text only) while voice mode is active</li>
+        <li>User-selected backend URL in settings</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Information sent to backend/API</h3>
+      <ul>
+        <li><span class="code">POST /api/generate-questions</span>: <span class="code">jobTitle</span>, <span class="code">company</span>, and <span class="code">cultureSignals</span></li>
+        <li><span class="code">POST /api/get-feedback</span>: <span class="code">sessionId</span>, <span class="code">question</span>, <span class="code">answer</span>, <span class="code">jobTitle</span>, and <span class="code">company</span></li>
+        <li><span class="code">GET /api/sessions</span>: no request body; returns recent session summaries</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Information not collected in current code</h3>
+      <ul>
+        <li>No account registration or login</li>
+        <li>No name, email, phone number, or government identifiers</li>
+        <li>No payment data</li>
+        <li>No cookies created by this extension code</li>
+      </ul>
+    </div>
+
+    <h2>How We Use Information</h2>
+    <ul>
+      <li>Populate job context for interview practice (company/role/description/culture signals)</li>
+      <li>Generate interview questions tailored to the role/company context</li>
+      <li>Generate feedback and score for a user’s submitted answer</li>
+      <li>Show history of previous sessions in the side panel</li>
+      <li>Support optional voice dictation in the mock interview screen</li>
+      <li>Store extension settings (for example, backend URL) and current page data locally for UX continuity</li>
+    </ul>
+
+    <h2>Permissions Justification</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Permission</th>
+          <th>Why It Is Needed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="code">sidePanel</span></td>
+          <td>Required to open and run the InterviewCopilot side panel UI when the user clicks the extension popup action.</td>
+        </tr>
+        <tr>
+          <td><span class="code">storage</span></td>
+          <td>Required to store extension data such as scraped job context, backend URL, and transient voice-update values used by side panel dictation flow.</td>
+        </tr>
+        <tr>
+          <td><span class="code">scripting</span></td>
+          <td>Required to inject the dictation helper function into the active tab during voice mode and stop that injected listener when voice is turned off.</td>
+        </tr>
+        <tr>
+          <td><span class="code">activeTab</span></td>
+          <td>Required to run injected dictation code in the current active tab after a user action, without requesting broad host access to all websites.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card">
+      <h3>Host permissions and scope</h3>
+      <ul>
+        <li><span class="code">https://www.linkedin.com/*</span></li>
+        <li><span class="code">https://www.glassdoor.com/*</span></li>
+        <li><span class="code">https://www.glassdoor.co.in/*</span></li>
+        <li><span class="code">http://localhost/*</span></li>
+        <li><span class="code">http://127.0.0.1/*</span></li>
+      </ul>
+      <p>
+        LinkedIn/Glassdoor permissions are used for job-page content extraction on supported pages. Localhost host permissions are used for extension-to-backend API requests in local/development deployments.
+      </p>
+    </div>
+
+    <h2>Data Storage and Security</h2>
+    <div class="card">
+      <h3>Client-side (Chrome extension)</h3>
+      <ul>
+        <li>Uses <span class="code">chrome.storage.local</span> for local extension state (job page data, backend URL, temporary voice update payloads).</li>
+        <li>No use of <span class="code">localStorage</span>, <span class="code">sessionStorage</span>, or IndexedDB in current code.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Server-side</h3>
+      <ul>
+        <li>Uses MongoDB via Mongoose to store interview sessions.</li>
+        <li>Stored session fields include company, job title, culture signals, generated questions, submitted answers, feedback, score, and creation timestamp.</li>
+      </ul>
+      <p>
+        Security controls such as TLS termination, database access policy, and infrastructure hardening depend on how you deploy the backend. Those controls are not defined by this repository alone.
+      </p>
+    </div>
+
+    <h2>Third-Party Services</h2>
+    <ul>
+      <li><strong>Google Gemini API:</strong> The backend sends prompt content containing job context and answer text to Google Gemini to generate questions and feedback.</li>
+      <li><strong>MongoDB:</strong> Session data is stored in a MongoDB database defined by your <span class="code">MONGODB_URI</span>.</li>
+    </ul>
+    <p>
+      No analytics SDK (for example Google Analytics, Mixpanel, Segment, or Sentry) is present in the current extension/server code.
+    </p>
+
+    <h2>User Rights</h2>
+    <ul>
+      <li>You can edit or stop sending new data by not using generation/feedback actions and by disabling voice mode.</li>
+      <li>You can clear extension-local data through Chrome extension storage controls (or by uninstalling the extension).</li>
+      <li>Server-stored sessions are managed by the backend deployment owner; this codebase currently provides read-listing of recent sessions but no dedicated delete endpoint.</li>
+    </ul>
+
+    <h2>Data Retention</h2>
+    <ul>
+      <li>Extension local data remains until overwritten, manually cleared, or the extension is removed.</li>
+      <li>MongoDB session records do not have an automatic expiration (TTL) in the current schema and are retained until manually deleted by the operator.</li>
+      <li>Voice updates in extension storage are temporary operational values and are removed when voice stops in normal flow.</li>
+    </ul>
+
+    <h2>Changes to This Policy</h2>
+    <p>
+      If app behavior changes (for example new permissions, new third-party services, or additional data fields), this policy should be updated before release. The effective date at the top should be revised whenever changes are made.
+    </p>
+
+    <h2>Contact Information</h2>
+    <p>
+      A dedicated privacy contact is not defined in the current repository files. Before publishing, provide a monitored support contact (such as a project email) in this section and in your Chrome Web Store listing.
+    </p>
+  </main>
+</body>
+</html>
