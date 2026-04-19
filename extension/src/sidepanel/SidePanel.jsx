@@ -456,10 +456,7 @@ function MockScreen() {
       try {
         const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
         const tab = tabs[0];
-        const url = tab?.url || "";
-        const okUrl = /^https?:\/\//i.test(url) && !/^https?:\/\/chrome\.google\.com\/webstore/i.test(url);
-
-        if (tab?.id != null && okUrl) {
+        if (tab?.id != null) {
           await chrome.storage.local.remove(["icVoiceSeed", "icVoiceUpdate"]);
           const seed = voiceCommittedRef.current;
           await chrome.scripting.executeScript({
@@ -469,14 +466,12 @@ function MockScreen() {
           });
           dictationTabIdRef.current = tab.id;
           setVoiceMode("tab");
-          console.info("[InterviewCopilot voice] Injected into tab", tab.id, url.slice(0, 80));
+          console.info("[InterviewCopilot voice] Injected into tab", tab.id);
           return;
         }
-        console.info("[InterviewCopilot voice] No injectable active tab; falling back to side panel.", {
-          url: url.slice(0, 80),
-        });
+        console.info("[InterviewCopilot voice] No active tab id; falling back to side panel.");
         setSpeechError(
-          "No http(s) page in this window — speech runs in the active tab. Open LinkedIn (or any site), focus it, then try again. Using side panel fallback…"
+          "No page tab in this window — speech runs in the active tab. Open LinkedIn (or any site), focus it, then try again. Using side panel fallback…"
         );
       } catch (e) {
         console.info("[InterviewCopilot voice] Tab inject failed; falling back to side panel.", e);
