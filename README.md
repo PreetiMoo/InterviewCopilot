@@ -89,3 +89,21 @@ Scraping runs after a short delay; if fields cannot be read reliably, the extens
 | `PORT`          | HTTP port (default `5000`)           |
 
 See `server/.env.example`.
+
+## Host privacy policy on GitHub Pages
+
+This repo includes a publish-ready page at `docs/index.html`.
+
+1. Push your latest changes to GitHub.
+2. Open your repository on GitHub.
+3. Go to **Settings** -> **Pages**.
+4. Under **Build and deployment**:
+   - **Source**: `Deploy from a branch`
+   - **Branch**: `main` (or your default branch)
+   - **Folder**: `/docs`
+5. Click **Save**.
+6. Wait for deployment to finish (usually 1-3 minutes).
+7. Your public policy URL will be:
+   - `https://<your-username>.github.io/<your-repo>/`
+
+For Chrome Web Store submission, use that GitHub Pages URL as your privacy policy link.
